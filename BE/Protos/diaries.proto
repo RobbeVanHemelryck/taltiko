@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package diaries;
+
+//Actions
+service Diaries {
+  rpc CreateDiary (CreateDiaryRequest) returns (DiaryResponse);
+  rpc CreateEntry (CreateEntryRequest) returns (EntryResponse);
+  rpc RetrieveDiary (RetrieveDiaryRequest) returns (DiaryResponse);
+}
+
+//Requests
+message CreateDiaryRequest {
+}
+
+message CreateEntryRequest {
+  int32 diaryId = 1;
+  google.protobuf.Timestamp date = 2;
+  string value = 3;
+}
+
+message RetrieveDiaryRequest {
+}
+
+//Responses
+message DiaryResponse {
+  int32 id = 1;
+  repeated EntryResponse entries = 2;
+}
+
+message EntryResponse {
+  int32 id = 1;
+  google.protobuf.Timestamp date = 2;
+  string value = 3;
+}

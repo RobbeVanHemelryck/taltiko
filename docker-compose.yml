@@ -1,0 +1,21 @@
+version: '3'
+
+networks:
+  movie-manager-network:
+
+services:
+  movie-manager-fe:
+    image: taltiko/movie-manager-fe:latest
+    container_name: movie-manager-fe
+    ports:
+      - "6969:80"
+    networks:
+      - movie-manager-network
+
+  # movie-manager-be:
+  #   image: taltiko/movie-manager-be:latest
+  #   container_name: movie-manager-be
+  #   ports:
+  #     - "7031:80"
+  #   networks:
+  #     - movie-manager-network
