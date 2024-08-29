@@ -1,0 +1,36 @@
+﻿@using Diaries
+@using Google.Protobuf.WellKnownTypes
+@inject Diaries.DiariesClient DiariesClient
+
+<MudDialog>
+    <DialogContent>
+        <MudForm>
+            <MudDatePicker @bind-Date="Date" Label="Select Date" />
+            <MudTextField @bind-Value="Text" Label="What did you do today?" Lines="10" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton @onclick="Submit" Variant="Variant.Filled" Color="Color.Primary">Submit</MudButton>
+        <MudButton @onclick="MudDialog.Cancel" Variant="Variant.Text">Cancel</MudButton>
+    </DialogActions>
+</MudDialog>
+
+
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+    public DateTime? Date { get; set; } = DateTime.Now;
+    public string Text { get; set; } = string.Empty;
+
+    private async Task Submit()
+    {
+        var request = new CreateEntryRequest
+        {
+            DiaryId = 1,
+            Date = Timestamp.FromDateTime(DateTime.SpecifyKind(Date.Value, DateTimeKind.Utc)),
+            Value = Text
+        };
+
+        await DiariesClient.CreateEntryAsync(request);
+    }
+}

@@ -23,6 +23,7 @@ message CreateEntryRequest {
 }
 
 message RetrieveDiaryRequest {
+  int32 diaryId = 1;
 }
 
 //Responses
