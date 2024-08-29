@@ -1,0 +1,34 @@
+﻿@inherits LayoutComponentBase
+@* Required *@
+<MudThemeProvider />
+<MudPopoverProvider />
+
+@* Needed for dialogs *@
+<MudDialogProvider />
+
+@* Needed for snackbars *@
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar>
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="ToggleMenu"/>
+        Menu
+    </MudAppBar>
+    
+    <MudDrawer @bind-Open="@_isMenuOpen">
+        <NavMenu/>
+    </MudDrawer>
+    
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+</MudLayout>
+
+
+@code{
+    bool _isMenuOpen;
+
+    void ToggleMenu()
+        => _isMenuOpen = !_isMenuOpen;
+
+}
