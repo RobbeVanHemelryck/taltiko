@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+//import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package people;
+
+//Actions
+service Character {
+  rpc Retrieve (RetrieveCharacterRequest) returns (CharacterResponse);
+  rpc UpdateCategoryEntries (UpdateCategoryEntriesRequest) returns (CharacterResponse);
+  rpc AddCategory (AddCategoryRequest) returns (CharacterResponse);
+}
+
+//Requests
+message RetrieveCharacterRequest {
+  int32 characterId = 1;
+}
+
+message UpdateCategoryEntriesRequest {
+  int32 characterId = 1;
+  int32 categoryId = 2;
+  repeated EntryResponse entries = 3;
+}
+
+message AddCategoryRequest {
+  int32 characterId = 1;
+  int32 categoryId = 2;
+}
+
+//Responses
+message CharacterResponse {
+  int32 id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  repeated CategoryEntriesResponse entries = 4;
+}
+
+message CategoryEntriesResponse {
+  int32 id = 1;
+  int32 order = 2;
+  repeated EntryResponse entries = 3;
+}
+
+message EntryResponse {
+  int32 id = 1;
+  int32 order = 2;
+  string value = 3;
+  EntryDateResponse date = 4;
+}
+
+message EntryDateResponse {
+  int32 dayPart = 1;
+  int32 monthPart = 2;
+  int32 yearPart = 3;
+}

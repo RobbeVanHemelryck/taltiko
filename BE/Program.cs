@@ -12,7 +12,7 @@ builder.Services.AddCors(x =>
 
 builder.Services.AddDbContext<TaltikoContext>(x =>
 {
-    x.UseSqlServer(builder.Configuration.GetConnectionString("Database"));
+    x.UseSqlServer(builder.Configuration.GetConnectionString("Database")!);
 });
 
 builder.Services.AddHttpClient("Movies", x =>

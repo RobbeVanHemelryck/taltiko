@@ -1,0 +1,48 @@
+﻿@* @page "/diary" *@
+@* @using FE *@
+@* @using Diaries *@
+@* @inject IDialogService DialogService *@
+@* @inject Diaries.DiariesClient DiariesClient *@
+@* @inject console console *@
+@* *@
+@* <MudContainer> *@
+@*     @foreach (var entry in entries) *@
+@*     { *@
+@*     <MudCard Style="margin-bottom: 16px;"> *@
+@*         <MudCardContent> *@
+@*             <MudText>@entry.Date.ToString()</MudText> *@
+@*             <MudText Typo="Typo.body2">@entry.Value</MudText> *@
+@*         </MudCardContent> *@
+@*     </MudCard> *@
+@*     } *@
+@*     <MudContainer Class="text-center"> *@
+@*         <MudButton Variant="Variant.Filled" Color="Color.Primary" @onclick="AddEntry">Add entry</MudButton> *@
+@*     </MudContainer> *@
+@* </MudContainer> *@
+@* *@
+@* <button @onclick="CreateDiary"  class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create diary</button> *@
+@* *@
+@* *@
+@* @code { *@
+@*     private int defaultDiaryId = 1; *@
+@*     List<EntryResponse> entries = []; *@
+@*     protected override async Task OnInitializedAsync() *@
+@*     { *@
+@*         var response = await DiariesClient.RetrieveDiaryAsync(new RetrieveDiaryRequest { DiaryId = defaultDiaryId}); *@
+@*         entries = response.Entries.ToList(); *@
+@*     } *@
+@* *@
+@*     private async Task CreateDiary() *@
+@*     { *@
+@*         var request = new CreateDiaryRequest(); *@
+@*         var result = await DiariesClient.CreateDiaryAsync(request); *@
+@*         console.log(result); *@
+@*     } *@
+@* *@
+@*     private void AddEntry() *@
+@*     { *@
+@*         var options = new DialogOptions { CloseButton = true }; *@
+@*         DialogService.Show<AddEntry>("Add entry", options); *@
+@*     } *@
+@* *@
+@* } *@
